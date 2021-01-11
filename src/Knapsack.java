@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: Anna Kuczyńska
+ */
+
 public class Knapsack {
 
     private int totalCapacity;
