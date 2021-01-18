@@ -12,13 +12,19 @@ public class Main {
     public static Random rand = new Random();
 
     public static void main(String[] args) {
+        System.out.println();
         int itemsAmount = 5;
         Item[] items = generateItems(itemsAmount);
         Graph graph = buildGraph(items);
         System.out.println(graph);
         System.out.println();
         ACO aco = new ACO(graph, 10, 100, 15, 1, 5, 0.5);
-        System.out.println(aco.getScore());
+        System.out.println("Result: " + aco.getScore());
+        System.out.print("Steps:");
+        for (Node step : aco.getSolution()) {
+            System.out.print(" " + step.getName());
+        }
+        System.out.println();
     }
 
     private static Item[] generateItems(int itemsAmount) {
@@ -34,8 +40,8 @@ public class Main {
         Graph graph = new Graph(items[0]);
         Map<String, Node> nodes = graph.getNodes();
 
-        for (int i = 0; i < items.length; i++) {
-            graph.createNode(items[i]);
+        for (Item item : items) {
+            graph.createNode(item);
         }
 
         for (String key : nodes.keySet()) {
