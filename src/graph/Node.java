@@ -13,13 +13,11 @@ public class Node {
         this.graph = graph;
         this.item = item;
         this.links = new ArrayList<>();
-
-//        graph.registerNode(this);
     }
 
-    Node(Node parent, int cost, Item item) {
+    Node(Node parent, Item item) {
         this(parent.getGraph(), item);
-        parent.linkTo(this, cost);
+        parent.linkTo(this);
     }
 
     public Graph getGraph() {
@@ -38,8 +36,8 @@ public class Node {
         return item.getUuid();
     }
 
-    public void linkTo(Node target, int cost) {
-        links.add(new Link(this, target, cost));
+    public void linkTo(Node target) {
+        links.add(new Link(this, target, target.getItem().getWeight()));
     }
 
     @Override

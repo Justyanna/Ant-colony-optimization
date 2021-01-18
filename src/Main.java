@@ -32,7 +32,7 @@ public class Main {
 
         for(int i = 1; i < items.length; i++)
         {
-            graph.createNode(graph.getRoot(), rand.nextInt(10) + 1, items[i]);
+            graph.createNode(graph.getRoot(), items[i]);
         }
 
         return graph;

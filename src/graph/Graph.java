@@ -32,14 +32,14 @@ public class Graph {
         return node;
     }
 
-    public Node createNode(Node parent, int cost, Item item) {
+    public Node createNode(Node parent, Item item) {
         if(parent.getGraph() != this || nodes.containsKey(item.getUuid())) {
             return null;
         }
 
-        Node node = new Node(this, item);
+        Node node = new Node(parent, item);
         nodes.put(node.getName(), node);
-        parent.linkTo(node, cost);
+        parent.linkTo(node);
         return node;
     }
 
