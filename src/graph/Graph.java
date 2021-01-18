@@ -19,6 +19,10 @@ public class Graph {
         return root;
     }
 
+    public Node getNode(String name) {
+        return nodes.get(name);
+    }
+
     public boolean registerNode(Node node) {
         if(node.getGraph() == this) {
             nodes.put(root.getName(), root);

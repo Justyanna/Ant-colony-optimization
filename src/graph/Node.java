@@ -11,6 +11,7 @@ public class Node {
 
     public Node(Graph graph, Item item) {
         this.graph = graph;
+        graph.registerNode(this);
         this.item = item;
         this.links = new ArrayList<>();
     }
