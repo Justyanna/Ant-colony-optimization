@@ -9,14 +9,15 @@ public class Node {
     private Item item;
     private List<Link> links;
 
-    public Node(Graph graph, Item item) {
+    Node(Graph graph, Item item) {
         this.graph = graph;
-        graph.registerNode(this);
         this.item = item;
         this.links = new ArrayList<>();
+
+//        graph.registerNode(this);
     }
 
-    public Node(Node parent, int cost, Item item) {
+    Node(Node parent, int cost, Item item) {
         this(parent.getGraph(), item);
         parent.linkTo(this, cost);
     }

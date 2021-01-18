@@ -11,8 +11,7 @@ public class Graph {
 
     public Graph(Item item) {
         nodes = new HashMap<>();
-        root = new Node(this, item);
-        registerNode(root);
+        root = createNode(item);
     }
 
     public Node getRoot() {
@@ -23,13 +22,25 @@ public class Graph {
         return nodes.get(name);
     }
 
-    public boolean registerNode(Node node) {
-        if(node.getGraph() == this) {
-            nodes.put(root.getName(), root);
-            return true;
+    public Node createNode(Item item) {
+        if(nodes.containsKey(item.getUuid())) {
+            return null;
         }
 
-        return false;
+        Node node = new Node(this, item);
+        nodes.put(node.getName(), node);
+        return node;
+    }
+
+    public Node createNode(Node parent, int cost, Item item) {
+        if(parent.getGraph() != this || nodes.containsKey(item.getUuid())) {
+            return null;
+        }
+
+        Node node = new Node(this, item);
+        nodes.put(node.getName(), node);
+        parent.linkTo(node, cost);
+        return node;
     }
 
     @Override
