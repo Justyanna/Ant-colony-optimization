@@ -4,13 +4,17 @@ import algorithm.Item;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Graph {
+
+    private Random rand;
 
     private Map<String, Node> nodes;
     private Node root;
 
     public Graph(Item item) {
+        rand = new Random();
         nodes = new HashMap<>();
         root = createNode(item);
     }
@@ -21,6 +25,23 @@ public class Graph {
 
     public Node getNode(String name) {
         return nodes.get(name);
+    }
+
+    public Node getRandomNode() {
+
+        int id = rand.nextInt(nodes.size());
+
+        for(String name : nodes.keySet()) {
+            if(id-- == 0) {
+                return nodes.get(name);
+            }
+        }
+
+        return null;
+    }
+
+    public String [] getNodeNames() {
+        return nodes.keySet().toArray(new String[0]);
     }
 
     public Map<String, Node> getNodes() {

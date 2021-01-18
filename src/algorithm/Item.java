@@ -24,6 +24,9 @@ public class Item {
     public double getAttractiveness() { return (double)price / weight; }
     public double getPheromone() { return pheromone; }
 
+    public void addPheromone(double amount) { pheromone += amount; }
+    public void evaporatePheromone(double rate) { pheromone *= rate; }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

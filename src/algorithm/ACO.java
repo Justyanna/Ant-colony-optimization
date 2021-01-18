@@ -12,17 +12,21 @@ public class ACO {
     private Ant[] workers;
     private int numCycles;
     private int totalKnapsackCapacity;
-    private int itemsAmount;
+    private int alpha;
+    private int beta;
+    private double evaporationRate;
 
     private List<Node> solution;
     private int score;
 
-    public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int itemsAmount) {
+    public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta, double evaporationRate) {
         this.data = data;
         this.workers = new Ant[numAnts];
         this.numCycles = numCycles;
         this.totalKnapsackCapacity = totalKnapsackCapacity;
-        this.itemsAmount = itemsAmount;
+        this.alpha = alpha;
+        this.beta = beta;
+        this.evaporationRate = evaporationRate;
 
         unleashAnts();
 
@@ -40,11 +44,10 @@ public class ACO {
             int cycleRecord = 0;
 
             for (Ant w : workers) {
-                //                TODO: Ant business
-                int antScore = 0;
-                if (antScore > cycleRecord) {
+                w.work();
+                if (w.getScore() > cycleRecord) {
                     cycleSolution = w.getPath();
-                    cycleRecord = antScore;
+                    cycleRecord = w.getScore();
                 }
             }
 
@@ -59,18 +62,36 @@ public class ACO {
     }
 
     private void unleashAnts() {
-        //        TODO: Ants' initialization
+
+        for(int i = 0; i < getNumAnts(); i++) {
+            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(), alpha, beta);
+        }
+
     }
 
     private void evaporate() {
-        //        TODO: Evaporation
+
+        for(String name : data.getNodeNames()) {
+            data.getNode(name).getItem().evaporatePheromone(evaporationRate);
+        }
+
     }
 
     private void updatePheromones() {
-        //        TODO: Pheromones
+
+        for(Ant w : workers) {
+
+            double strength = 1 / (1 + (score - w.getScore()) / score);
+
+            for(Node node : w.getPath()) {
+                node.getItem().addPheromone(strength);
+            }
+
+        }
+
     }
 
-    public int getNumWorkers() { return workers.length; }
+    public int getNumAnts() { return workers.length; }
 
     public int getNumCycles() { return numCycles; }
 
