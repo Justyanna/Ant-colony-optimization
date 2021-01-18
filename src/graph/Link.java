@@ -1,24 +1,23 @@
 package graph;
 
-import graph.Node;
-
 public class Link {
 
     private int cost;
-    private Node first, last;
+    private Node source;
+    private Node target;
 
-    public Link(Node first, Node last, int cost) {
-        this.first = first;
-        this.last = last;
+    public Link(Node source, Node target, int cost) {
+        this.source = source;
+        this.target = target;
         this.cost = cost;
     }
 
-    public Node getFirst() {
-        return first;
+    public Node getSource() {
+        return source;
     }
 
-    public Node getLast() {
-        return last;
+    public Node getTarget() {
+        return target;
     }
 
     public int getCost() {
@@ -27,6 +26,6 @@ public class Link {
 
     @Override
     public String toString() {
-        return "\n from = " + first.getItem().getUuid() + " to =" + last.getItem().getUuid() + " cost = "+cost;
+        return "<" + getCost() + "> " + getTarget().getName();
     }
 }

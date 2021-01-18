@@ -11,8 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Item[] items = generateItems();
-        List<Node> nodes = foldItems(items);
-        Graph graph = new Graph(nodes, nodes.get(0));
+        Graph graph = buildGraph(items);
         System.out.println(graph);
     }
 
@@ -21,32 +20,24 @@ public class Main {
         Random random = new Random();
 
         for (int i = 0; i < items.length; i++) {
-            items[i] = new Item(random.nextInt(10) + 1, random.nextInt(100) + 1, false, random.nextDouble());
+            items[i] = new Item(
+                    random.nextInt(10) + 1,
+                    random.nextInt(100) + 1,
+                    false, random.nextDouble());
         }
         return items;
     }
 
-    private static List<Node> foldItems(Item[] items) {
-        // Z listy wszystkich itemów tworzy wierzchołki grafu połączone ze wszystkimi innymi wierzhołkami poza sobą
-        List<Node> nodes = new ArrayList<>();
-        Random random = new Random();
+    private static Graph buildGraph(Item [] items) {
+        // Z listy wszystkich itemów tworzy wierzchołki grafu połączone ze wszystkimi innymi wierzchołkami poza sobą
+        Graph graph = new Graph(items[0]);
+        Random rand = new Random();
 
-        for (int i = 0; i < items.length; i++) {
-            nodes.add(new Node(items[i]));
+        for(int i = 1; i < items.length; i++)
+        {
+            new Node(graph.getRoot(), rand.nextInt(10) + 1, items[i]);
         }
 
-        List<Link> links;
-        for (Node node : nodes) {
-            links = new ArrayList<>();
-            for (Node node1 : nodes) {
-                if (node.getItem() != node1.getItem()) {
-                    links.add(new Link(node, node1, random.nextInt(10) + 1));
-                }
-            }
-            System.out.println(links);
-            node.setLinks(links);
-        }
-
-        return nodes;
+        return graph;
     }
 }

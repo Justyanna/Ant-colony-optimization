@@ -1,23 +1,41 @@
 package graph;
 
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Graph {
 
-    private List<Node> nodes;
-    private Node source;
+    private Map<String, Node> nodes;
+    private Node root;
 
-    public Graph(List<Node> nodes, Node source) {
-        this.nodes = nodes;
-        this.source = source;
+    public Graph(Item item) {
+        nodes = new HashMap<>();
+        root = new Node(this, item);
+        registerNode(root);
     }
 
-    private List<Node> getNodes() {
-        return nodes;
+    public Node getRoot() {
+        return root;
+    }
+
+    public boolean registerNode(Node node) {
+        if(node.getGraph() == this) {
+            nodes.put(root.getName(), root);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public String toString() {
-        return "graph.Graph{" + "nodes=" + nodes + "\nsource=" + source + "}";
+        StringBuilder result = new StringBuilder("Graph:");
+
+        for(String key : nodes.keySet()) {
+            result.append("\n\t").append(nodes.get(key));
+        }
+
+        return result.toString();
     }
 }
