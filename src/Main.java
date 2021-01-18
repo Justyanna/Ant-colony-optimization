@@ -1,9 +1,51 @@
-import algorithm.ACO;
+import algorithm.Data;
+import algorithm.Item;
+import graph.Graph;
+import graph.Node;
+
+import java.util.Map;
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
-        ACO aco = new ACO(100, 100, 10, 10);
-        System.out.println(aco.getData());
+        int itemsAmount = 10;
+        Item[] items = generateItems(itemsAmount);
+        Graph graph = buildGraph(items);
+
+        System.out.println(graph);
+    }
+
+    private static Item[] generateItems(int itemsAmount) {
+        Random random = new Random();
+        Item[] items = new Item[Math.min(itemsAmount, Data.itemsNames.length)];
+
+        for (int i = 0; i < items.length; i++) {
+            items[i] = new Item(Data.itemsNames[i], random.nextInt(10) + 1, random.nextInt(100) + 1, false,
+                                random.nextDouble());
+        }
+        return items;
+    }
+
+    private static Graph buildGraph(Item[] items) {
+        Graph graph = new Graph(items[0]);
+        Map<String, Node> nodes = graph.getNodes();
+
+        for (int i = 0; i < items.length; i++) {
+            graph.createNode(items[i]);
+        }
+
+        for (String key : nodes.keySet()) {
+            for (String nextKey : nodes.keySet()) {
+
+                Node source = graph.getNodes().get(key);
+                Node target = graph.getNodes().get(nextKey);
+
+                source.linkTo(target);
+                target.linkTo(source);
+            }
+        }
+
+        return graph;
     }
 }
