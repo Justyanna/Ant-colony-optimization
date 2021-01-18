@@ -44,6 +44,11 @@ public class Node {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(item.getName());
+    }
+
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder(this.getItem().toString());
 

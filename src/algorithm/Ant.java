@@ -10,13 +10,10 @@ import java.util.Random;
 public class Ant {
 
     private Node location;
-
     private List<Node> path;
     private List<Node> neighbourhood;
-
     private int capacity;
     private int score;
-
     private int alpha;
     private int beta;
 
@@ -30,20 +27,25 @@ public class Ant {
 
         this.alpha = alpha;
         this.beta = beta;
-
     }
 
     public Node getLocation() { return location; }
+
     public List<Node> getPath() { return new ArrayList<>(path); }
+
     public int getCapacity() { return capacity; }
+
     public int getScore() { return score; }
 
     public void work() {
 
-        while(neighbourhood.size() > 0) {
+        while (!neighbourhood.isEmpty()) {
+            Node next = chooseNext();
+            if (next == null) {
+                break;
+            }
             takeItem(chooseNext());
         }
-
     }
 
     private void takeItem(Node source) {
@@ -56,49 +58,47 @@ public class Ant {
         score += item.getPrice();
 
         updateNeighbourhood();
-
     }
 
     private void updateNeighbourhood() {
 
         neighbourhood = new ArrayList<>();
 
-        for(Link link : location.getLinks()) {
+        for (Link link : location.getLinks()) {
             Node node = link.getTarget();
-            if(link.getCost() <= capacity && !path.contains(node)) {
+            if (link.getCost() <= capacity && !path.contains(node)) {
                 neighbourhood.add(node);
             }
         }
-
     }
 
     private Node chooseNext() {
 
         int n = neighbourhood.size();
-        double [] scores = new double[n];
+        double[] scores = new double[n];
         double sum = 0;
 
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             scores[i] = rateItem(neighbourhood.get(i).getItem());
             sum += scores[i];
         }
 
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             scores[i] /= sum;
         }
 
-//        -- cumsum
-        for(int i = 1; i < n; i++) {
+        //        -- cumsum
+        for (int i = 1; i < n; i++) {
             scores[i] += scores[i - 1];
         }
 
-//        -- roll
+        //        -- roll
         Random rand = new Random();
         double roll = rand.nextDouble();
 
-//        -- substitute distribution
-        for(int i = 0; i < n; i++) {
-            if(roll < scores[i]) {
+        //        -- substitute distribution
+        for (int i = 0; i < n; i++) {
+            if (roll < scores[i]) {
                 return neighbourhood.get(i);
             }
         }
@@ -109,5 +109,4 @@ public class Ant {
     private double rateItem(Item item) {
         return Math.pow(item.getAttractiveness(), alpha) * Math.pow(item.getPheromone(), beta);
     }
-
 }

@@ -1,3 +1,4 @@
+import algorithm.ACO;
 import algorithm.Data;
 import algorithm.Item;
 import graph.Graph;
@@ -11,11 +12,15 @@ public class Main {
     public static Random rand = new Random();
 
     public static void main(String[] args) {
-        int itemsAmount = 10;
+        int itemsAmount = 3;
         Item[] items = generateItems(itemsAmount);
         Graph graph = buildGraph(items);
-
         System.out.println(graph);
+        System.out.println();
+        ACO aco = new ACO(graph, 10, 100, 15, 1, 5, 0.5);
+        System.out.println(aco.getScore());
+
+
     }
 
     private static Item[] generateItems(int itemsAmount) {
