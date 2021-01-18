@@ -1,3 +1,5 @@
+package graph;
+
 import java.nio.ByteBuffer;
 import java.util.Objects;
 import java.util.UUID;
@@ -42,7 +44,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" + "uuid = " + uuid + ", weight = " + weight + ", price = " + price + ", probability = " +
+        return "graph.Item{" + "uuid = " + uuid + ", weight = " + weight + ", price = " + price + ", probability = " +
                 probability + '}';
     }
 

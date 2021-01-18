@@ -1,9 +1,13 @@
+package graph;
+
+import graph.Node;
+
 public class Link {
 
     private int cost;
     private Node first, last;
 
-    Link(Node first, Node last, int cost) {
+    public Link(Node first, Node last, int cost) {
         this.first = first;
         this.last = last;
         this.cost = cost;

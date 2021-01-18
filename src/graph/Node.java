@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.List;
 
 public class Node {
@@ -22,7 +24,7 @@ public class Node {
         return links;
     }
 
-    void setLinks(List<Link> links) {
+    public void setLinks(List<Link> links) {
         this.links = links;
     }
 

@@ -1,3 +1,7 @@
+package algorithm;
+
+import graph.Node;
+
 import java.util.List;
 
 public class Ant {

@@ -1,3 +1,5 @@
+package graph;
+
 import java.util.List;
 
 public class Graph {
@@ -16,6 +18,6 @@ public class Graph {
 
     @Override
     public String toString() {
-        return "Graph{" + "nodes=" + nodes + "\nsource=" + source + "}";
+        return "graph.Graph{" + "nodes=" + nodes + "\nsource=" + source + "}";
     }
 }
