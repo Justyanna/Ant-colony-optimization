@@ -19,8 +19,6 @@ public class Main {
         System.out.println();
         ACO aco = new ACO(graph, 10, 100, 15, 1, 5, 0.5);
         System.out.println(aco.getScore());
-
-
     }
 
     private static Item[] generateItems(int itemsAmount) {

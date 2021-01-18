@@ -28,8 +28,6 @@ public class ACO {
         this.beta = beta;
         this.evaporationRate = evaporationRate;
 
-        unleashAnts();
-
         compute();
     }
 
@@ -39,6 +37,8 @@ public class ACO {
         score = 0;
 
         for (int c = 0; c < numCycles; c++) {
+
+            unleashAnts();
 
             List<Node> cycleSolution = new ArrayList<>();
             int cycleRecord = 0;
