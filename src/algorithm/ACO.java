@@ -17,7 +17,6 @@ public class ACO {
     private List<Node> solution;
     private int score;
 
-
     public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int itemsAmount) {
         this.data = data;
         this.workers = new Ant[numAnts];

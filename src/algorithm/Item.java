@@ -7,16 +7,22 @@ public class Item {
     private String name;
     private int weight;
     private int price;
-    private boolean flag;
-    private double probability;
+    private double pheromone;
 
-    public Item(String name, int weight, int price, boolean flag, double probability) {
-        this.probability = probability;
+    public Item(String name, int weight, int price) {
+
         this.name = name;
         this.weight = weight;
         this.price = price;
-        this.flag = flag;
+        this.pheromone = 0;
+
     }
+
+    public int getWeight() { return weight; }
+    public int getPrice() { return price; }
+    public String getName() { return name; }
+    public double getAttractiveness() { return (double)price / weight; }
+    public double getPheromone() { return pheromone; }
 
     @Override
     public int hashCode() {
@@ -37,22 +43,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return " weight = " + weight + ", price = " + price + ", probability = " + probability;
+        return name + " $" + price + " [" + weight + "lbs]";
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public boolean isFlag() {
-        return flag;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

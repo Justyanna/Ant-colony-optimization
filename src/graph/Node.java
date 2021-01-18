@@ -45,7 +45,7 @@ public class Node {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(this.getName() + " [" + this.getItem() + "]");
+        StringBuilder result = new StringBuilder(this.getItem().toString());
 
         for (Link link : links) {
             result.append("\n\t").append("-> ").append(link);

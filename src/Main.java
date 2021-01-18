@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class Main {
 
+    public static Random rand = new Random();
+
     public static void main(String[] args) {
         int itemsAmount = 10;
         Item[] items = generateItems(itemsAmount);
@@ -17,12 +19,10 @@ public class Main {
     }
 
     private static Item[] generateItems(int itemsAmount) {
-        Random random = new Random();
         Item[] items = new Item[Math.min(itemsAmount, Data.itemsNames.length)];
 
         for (int i = 0; i < items.length; i++) {
-            items[i] = new Item(Data.itemsNames[i], random.nextInt(10) + 1, random.nextInt(100) + 1, false,
-                                random.nextDouble());
+            items[i] = new Item(Data.itemsNames[i], rand.nextInt(10) + 1, rand.nextInt(100) + 1);
         }
         return items;
     }
