@@ -8,18 +8,19 @@ import java.util.List;
 
 public class ACO {
 
-    private Graph data;
-    private Ant[] workers;
-    private int numCycles;
-    private int totalKnapsackCapacity;
-    private int alpha;
-    private int beta;
-    private double evaporationRate;
+    private final Graph data;
+    private final Ant[] workers;
+    private final int numCycles;
+    private final int totalKnapsackCapacity;
+    private final int alpha;
+    private final int beta;
+    private final double evaporationRate;
 
     private List<Node> solution;
     private int score;
 
-    public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta, double evaporationRate) {
+    public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta,
+               double evaporationRate) {
         this.data = data;
         this.workers = new Ant[numAnts];
         this.numCycles = numCycles;
@@ -81,7 +82,7 @@ public class ACO {
 
         for(Ant w : workers) {
 
-            double strength = 1 / (1 + (score - w.getScore()) / score);
+            double strength = 1.0 / (1.0 + (double) (score - w.getScore()) / score);
 
             for(Node node : w.getPath()) {
                 node.getItem().addPheromone(strength);

@@ -12,7 +12,7 @@ public class Main {
     public static Random rand = new Random();
 
     public static void main(String[] args) {
-        int itemsAmount = 3;
+        int itemsAmount = 5;
         Item[] items = generateItems(itemsAmount);
         Graph graph = buildGraph(items);
         System.out.println(graph);
