@@ -40,7 +40,7 @@ public class Node {
             return false;
         }
         Node node = (Node) o;
-        return Objects.equals(item.getName(), node.item.getName());
+        return item.getName().equals(node.item.getName());
     }
 
     @Override

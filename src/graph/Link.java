@@ -1,5 +1,7 @@
 package graph;
 
+import java.util.Objects;
+
 public class Link {
 
     private int cost;
@@ -22,6 +24,11 @@ public class Link {
 
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, target);
     }
 
     @Override
