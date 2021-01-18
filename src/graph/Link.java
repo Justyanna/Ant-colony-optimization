@@ -25,6 +25,18 @@ public class Link {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Link link = (Link) o;
+        return source.equals(link.source) && target.equals(link.target);
+    }
+
+    @Override
     public String toString() {
         return "<" + getCost() + "> " + getTarget().getName();
     }

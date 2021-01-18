@@ -1,25 +1,18 @@
-package graph;
+package algorithm;
 
-import java.nio.ByteBuffer;
 import java.util.Objects;
-import java.util.UUID;
 
-/**
- * @author: Anna Kuczyńska
- */
 public class Item {
 
-    private String uuid;
+    private String name;
     private int weight;
     private int price;
     private boolean flag;
     private double probability;
 
-    public Item(int weight, int price, boolean flag, double probability) {
+    public Item(String name, int weight, int price, boolean flag, double probability) {
         this.probability = probability;
-        UUID randomUUID = UUID.randomUUID();
-        long l = ByteBuffer.wrap(randomUUID.toString().getBytes()).getLong();
-        uuid = Long.toString(l, Character.MAX_RADIX);
+        this.name = name;
         this.weight = weight;
         this.price = price;
         this.flag = flag;
@@ -27,7 +20,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(name);
     }
 
     @Override
@@ -39,13 +32,12 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(uuid, item.uuid);
+        return Objects.equals(name, item.name);
     }
 
     @Override
     public String toString() {
-        return "graph.Item{" + "uuid = " + uuid + ", weight = " + weight + ", price = " + price + ", probability = " +
-                probability + '}';
+        return " weight = " + weight + ", price = " + price + ", probability = " + probability;
     }
 
     public int getWeight() {
@@ -60,7 +52,7 @@ public class Item {
         return flag;
     }
 
-    String getUuid() {
-        return uuid;
+    public String getName() {
+        return name;
     }
 }

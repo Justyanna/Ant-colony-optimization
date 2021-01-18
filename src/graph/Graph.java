@@ -1,5 +1,6 @@
 package graph;
 
+import algorithm.Item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,8 +23,12 @@ public class Graph {
         return nodes.get(name);
     }
 
+    public Map<String, Node> getNodes() {
+        return nodes;
+    }
+
     public Node createNode(Item item) {
-        if(nodes.containsKey(item.getUuid())) {
+        if (nodes.containsKey(item.getName())) {
             return null;
         }
 
@@ -33,7 +38,7 @@ public class Graph {
     }
 
     public Node createNode(Node parent, Item item) {
-        if(parent.getGraph() != this || nodes.containsKey(item.getUuid())) {
+        if (parent.getGraph() != this || nodes.containsKey(item.getName())) {
             return null;
         }
 
@@ -47,7 +52,7 @@ public class Graph {
     public String toString() {
         StringBuilder result = new StringBuilder("Graph:");
 
-        for(String key : nodes.keySet()) {
+        for (String key : nodes.keySet()) {
             result.append("\n\t").append(nodes.get(key));
         }
 

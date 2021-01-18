@@ -27,4 +27,6 @@ public class Ant {
     public List<Node> getNodesToVisit() {
         return nodesToVisit;
     }
+
+    //TODO pojedyncze rzeczy na mrówkach
 }
