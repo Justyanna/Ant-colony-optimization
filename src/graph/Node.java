@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class Node {
 
-    private Graph graph;
-    private Item item;
-    private Set<Link> links;
+    private final Graph graph;
+    private final Item item;
+    private final Set<Link> links;
 
     Node(Graph graph, Item item) {
         this.graph = graph;
@@ -24,7 +24,7 @@ public class Node {
     }
 
     public boolean linkTo(Node target) {
-        if (this == target) {
+        if (this.getGraph() != target.getGraph() || this.equals(target)) {
             return false;
         } else {
             return links.add(new Link(this, target, target.getItem().getWeight()));
@@ -40,7 +40,7 @@ public class Node {
             return false;
         }
         Node node = (Node) o;
-        return item.getName().equals(node.item.getName());
+        return this.getGraph() == node.getGraph() && this.getName().equals(node.getName());
     }
 
     @Override
