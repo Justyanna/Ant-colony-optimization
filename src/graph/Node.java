@@ -45,7 +45,7 @@ public class Node {
 
     @Override
     public int hashCode() {
-        return Objects.hash(item.getName());
+        return Objects.hash(this.getGraph(), this.getName());
     }
 
     @Override
