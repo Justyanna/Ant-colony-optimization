@@ -6,7 +6,6 @@ import graph.Node;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ACO {
 
     private final Graph data;
@@ -17,7 +16,6 @@ public class ACO {
     private final int beta;
     private final Ant.Optimization optimization;
     private final double evaporationRate;
-
     private List<Node> solution;
     private int score;
     private int space_used;
@@ -73,38 +71,32 @@ public class ACO {
             evaporate();
             updatePheromones();
         }
-
     }
 
     private void unleashAnts() {
 
-        for(int i = 0; i < getNumAnts(); i++) {
-            workers[i] = new Ant(total_capacity, data.getRandomNode(total_capacity),
-                    alpha, beta, optimization);
+        for (int i = 0; i < getNumAnts(); i++) {
+            workers[i] = new Ant(total_capacity, data.getRandomNode(total_capacity), alpha, beta, optimization);
         }
-
     }
 
     private void evaporate() {
 
-        for(String name : data.getNodeNames()) {
+        for (String name : data.getNodeNames()) {
             data.getNode(name).getItem().evaporatePheromone(evaporationRate);
         }
-
     }
 
     private void updatePheromones() {
 
-        for(Ant w : workers) {
+        for (Ant w : workers) {
 
             double strength = 1.0 / (1.0 + (double) (score - w.getScore()) / score);
 
-            for(Node node : w.getPath()) {
+            for (Node node : w.getPath()) {
                 node.getItem().addPheromone(strength);
             }
-
         }
-
     }
 
     public int getNumAnts() {
@@ -121,6 +113,14 @@ public class ACO {
 
     public int getScore() {
         return score;
+    }
+
+    public int getSpace_used() {
+        return space_used;
+    }
+
+    public int getTotal_capacity() {
+        return total_capacity;
     }
 
     @Override
@@ -141,6 +141,5 @@ public class ACO {
         }
 
         return result.toString();
-
     }
 }

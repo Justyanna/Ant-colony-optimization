@@ -15,7 +15,6 @@ public class Item {
         this.value = value;
         this.weight = weight;
         this.pheromone = 0;
-
     }
 
     public int getValue() {
@@ -35,7 +34,8 @@ public class Item {
     }
 
     public void addPheromone(double amount) { pheromone += amount; }
-    public void evaporatePheromone(double rate) { pheromone *= rate; }
+
+    public void evaporatePheromone(double rate) { pheromone *= 1.0 - rate; }
 
     @Override
     public int hashCode() {
@@ -58,5 +58,4 @@ public class Item {
     public String toString() {
         return name + " $" + value + " [" + weight + "g]";
     }
-
 }
