@@ -31,11 +31,11 @@ public class ItemTemplate {
 
     public Item generate() {
 
-        String name = this.name + " " + (++count);
+        String name = this.name + " #" + (++count);
         int value = rng.nextInt(max_value - min_value + 1) + min_value;
         int weight = rng.nextInt(max_weight - min_weight + 1) + min_weight;
 
-        return new Item(name, weight, value);
+        return new Item(name, value, weight);
 
     }
 

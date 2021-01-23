@@ -13,11 +13,16 @@ public class Graph {
     private final Map<String, Node> nodes;
     private final Node root;
 
+    private int total_weight;
+    private int total_value;
+
     private int weight_limit;
     private List<Node> valid_nodes;
 
     public Graph(Item item) {
         nodes = new HashMap<>();
+        total_weight = 0;
+        total_value = 0;
         root = createNode(item);
         weight_limit = 0;
         valid_nodes = null;
@@ -81,8 +86,16 @@ public class Graph {
 
     }
 
-    public String [] getNodeNames() {
+    public String[] getNodeNames() {
         return nodes.keySet().toArray(new String[0]);
+    }
+
+    public int getTotalValue() {
+        return total_value;
+    }
+
+    public int getTotalWeight() {
+        return total_weight;
     }
 
     public Node createNode(Item item) {
@@ -92,6 +105,8 @@ public class Graph {
 
         Node node = new Node(this, item);
         nodes.put(node.getName(), node);
+        total_weight += item.getWeight();
+        total_value += item.getValue();
         return node;
     }
 
@@ -108,7 +123,7 @@ public class Graph {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("Graph:");
+        StringBuilder result = new StringBuilder("Graph total: $" + total_value + ", " + total_weight + "g");
 
         for (String key : nodes.keySet()) {
             result.append("\n\t").append(nodes.get(key));

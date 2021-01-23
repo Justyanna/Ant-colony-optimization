@@ -19,6 +19,7 @@ public class ACO {
 
     private List<Node> solution;
     private int score;
+    private int space_used;
 
     public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta,
                double evaporationRate) {
@@ -37,6 +38,7 @@ public class ACO {
 
         solution = new ArrayList<>();
         score = 0;
+        space_used = 0;
 
         for (int c = 0; c < numCycles; c++) {
 
@@ -66,6 +68,11 @@ public class ACO {
             evaporate();
             updatePheromones();
         }
+
+        for (Node node : solution) {
+            space_used += node.getItem().getWeight();
+        }
+
     }
 
     private void unleashAnts() {
@@ -121,10 +128,16 @@ public class ACO {
             return "No solution found.";
         }
 
-        StringBuilder result = new StringBuilder("Result: $" + getScore() + "\nSteps: ");
+        StringBuilder result = new StringBuilder("Ant Colony Optimization report");
+
+        result.append("\n Space used: ").append(space_used).append("/").append(totalKnapsackCapacity).append("g");
+        result.append("\n Score:      $").append(getScore());
+        result.append("\n Steps:     ");
+
         for (Node step : solution) {
             result.append(" ").append(step.getName());
         }
+
         return result.toString();
 
     }

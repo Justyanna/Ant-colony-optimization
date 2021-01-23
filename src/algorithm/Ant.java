@@ -55,7 +55,7 @@ public class Ant {
 
         Item item = source.getItem();
         capacity -= item.getWeight();
-        score += item.getPrice();
+        score += item.getValue();
 
         updateNeighbourhood();
     }

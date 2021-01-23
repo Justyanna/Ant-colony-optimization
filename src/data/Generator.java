@@ -58,8 +58,7 @@ public class Generator {
                 System.err.println("Generator warning : rejected duplicated templates (" + duplicates + ")");
             }
 
-            List<ItemTemplate> templates = new ArrayList<>();
-            templates.addAll(tmp);
+            List<ItemTemplate> templates = new ArrayList<>(tmp);
 
             items = new Item[amount];
 

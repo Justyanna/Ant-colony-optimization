@@ -5,24 +5,38 @@ import java.util.Objects;
 public class Item {
 
     private final String name;
+    private final int value;
     private final int weight;
-    private final int price;
     private double pheromone;
 
-    public Item(String name, int weight, int price) {
+    public Item(String name, int value, int weight) {
 
         this.name = name;
+        this.value = value;
         this.weight = weight;
-        this.price = price;
         this.pheromone = 0;
 
     }
 
-    public int getWeight() { return weight; }
-    public int getPrice() { return price; }
-    public String getName() { return name; }
-    public double getAttractiveness() { return (double)price / weight; }
-    public double getPheromone() { return pheromone; }
+    public int getValue() {
+        return value;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getAttractiveness() {
+        return (double) value / weight;
+    }
+
+    public double getPheromone() {
+        return pheromone;
+    }
 
     public void addPheromone(double amount) { pheromone += amount; }
     public void evaporatePheromone(double rate) { pheromone *= rate; }
@@ -46,7 +60,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return name + " $" + price + " [" + weight + " g]";
+        return name + " $" + value + " [" + weight + "g]";
     }
 
 }

@@ -5,8 +5,6 @@ import algorithm.Item;
 import data.Generator;
 import graph.Graph;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Random;
 
 public class Main {
@@ -29,20 +27,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        seeded = false;
-        seed = new Random().nextLong();
+//        seeded = false;
+//        seed = new Random().nextLong();
 
-        for (Iterator<String> it = Arrays.stream(args).iterator(); it.hasNext(); ) {
-            switch (it.next()) {
-                case "-s":
-                    try {
-                        seed = Long.parseLong(it.next());
-                        seeded = true;
-                    } catch (NullPointerException | NumberFormatException e) {
-                        System.err.println("Call error : missing or invalid value for parameter -s");
-                    }
-            }
-        }
+        seeded = true;
+        seed = 0;
 
         rng = new Random(seed);
         int itemsAmount = 5;
@@ -53,7 +42,7 @@ public class Main {
         System.out.println(graph);
         System.out.println();
 
-        ACO aco = new ACO(graph, 10, 100, 150, 1, 5, 0.5);
+        ACO aco = new ACO(graph, 10, 100, graph.getTotalWeight() / 2, 1, 5, 0.5);
         System.out.println(aco);
 
     }
