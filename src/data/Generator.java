@@ -5,7 +5,10 @@ import algorithm.Item;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Generator {
 
@@ -31,18 +34,19 @@ public class Generator {
 
     public Item[] createItems(int amount) {
 
+
         Item[] items = null;
 
         try {
-            Scanner in = new Scanner(new File("res/template.txt"));
+            Scanner source = new Scanner(new File("res/template.txt"));
 
             Set<ItemTemplate> tmp = new HashSet<>();
             int errors = 0;
             int duplicates = 0;
 
-            while (in.hasNextLine()) {
+            while (source.hasNextLine()) {
                 try {
-                    if (!tmp.add(new ItemTemplate(in.nextLine(), rng))) {
+                    if (!tmp.add(new ItemTemplate(source.nextLine(), rng))) {
                         duplicates++;
                     }
                 } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
@@ -58,12 +62,11 @@ public class Generator {
                 System.err.println("Generator warning : rejected duplicated templates (" + duplicates + ")");
             }
 
-            List<ItemTemplate> templates = new ArrayList<>(tmp);
-
+            ItemTemplate[] templates = tmp.toArray(new ItemTemplate[0]);
             items = new Item[amount];
 
             for (int i = 0; i < amount; i++) {
-                items[i] = templates.get(rng.nextInt(templates.size())).generate();
+                items[i] = templates[(rng.nextInt(templates.length))].generate();
             }
 
         } catch (IOException e) {
