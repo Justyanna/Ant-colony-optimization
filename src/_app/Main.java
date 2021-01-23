@@ -1,17 +1,43 @@
+package _app;
+
 import algorithm.ACO;
 import algorithm.Data;
 import algorithm.Item;
 import graph.Graph;
 import graph.Node;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
 public class Main {
 
-    public static Random rand = new Random();
+    private static Random rng;
+
+    public static Random getRng() {
+        return rng;
+    }
 
     public static void main(String[] args) {
+
+        boolean random_seed = true;
+        long seed = 0;
+
+        for (Iterator<String> it = Arrays.stream(args).iterator(); it.hasNext(); ) {
+            switch (it.next()) {
+                case "-s":
+                    try {
+                        seed = Long.parseLong(it.next());
+                        random_seed = false;
+                    } catch (NullPointerException | NumberFormatException e) {
+                        System.err.println("Call error : missing or invalid value for parameter -s");
+                    }
+            }
+        }
+
+        rng = random_seed ? new Random() : new Random(seed);
+
         System.out.println();
         int itemsAmount = 5;
         Item[] items = generateItems(itemsAmount);
@@ -31,7 +57,7 @@ public class Main {
         Item[] items = new Item[Math.min(itemsAmount, Data.itemsNames.length)];
 
         for (int i = 0; i < items.length; i++) {
-            items[i] = new Item(Data.itemsNames[i], rand.nextInt(10) + 1, rand.nextInt(100) + 1);
+            items[i] = new Item(Data.itemsNames[i], rng.nextInt(10) + 1, rng.nextInt(100) + 1);
         }
         return items;
     }

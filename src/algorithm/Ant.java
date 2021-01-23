@@ -1,21 +1,21 @@
 package algorithm;
 
+import _app.Main;
 import graph.Link;
 import graph.Node;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Ant {
 
     private Node location;
-    private List<Node> path;
+    private final List<Node> path;
     private List<Node> neighbourhood;
     private int capacity;
     private int score;
-    private int alpha;
-    private int beta;
+    private final int alpha;
+    private final int beta;
 
     public Ant(int capacity, Node startingNode, int alpha, int beta) {
 
@@ -93,8 +93,7 @@ public class Ant {
         }
 
         //        -- roll
-        Random rand = new Random();
-        double roll = rand.nextDouble();
+        double roll = Main.getRng().nextDouble();
 
         //        -- substitute distribution
         for (int i = 0; i < n; i++) {

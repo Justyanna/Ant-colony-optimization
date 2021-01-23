@@ -1,20 +1,17 @@
 package graph;
 
+import _app.Main;
 import algorithm.Item;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Graph {
 
-    private Random rand;
-
-    private Map<String, Node> nodes;
-    private Node root;
+    private final Map<String, Node> nodes;
+    private final Node root;
 
     public Graph(Item item) {
-        rand = new Random();
         nodes = new HashMap<>();
         root = createNode(item);
     }
@@ -29,7 +26,7 @@ public class Graph {
 
     public Node getRandomNode() {
 
-        int id = rand.nextInt(nodes.size());
+        int id = Main.getRng().nextInt(nodes.size());
 
         for(String name : nodes.keySet()) {
             if(id-- == 0) {
