@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Item {
 
-    private String name;
-    private int weight;
-    private int price;
+    private final String name;
+    private final int weight;
+    private final int price;
     private double pheromone;
 
     public Item(String name, int weight, int price) {

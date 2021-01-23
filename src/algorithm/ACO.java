@@ -33,7 +33,7 @@ public class ACO {
         compute();
     }
 
-    private final void compute() {
+    private void compute() {
 
         solution = new ArrayList<>();
         score = 0;

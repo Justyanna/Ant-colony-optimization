@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Link {
 
-    private int cost;
-    private Node source;
-    private Node target;
+    private final int cost;
+    private final Node source;
+    private final Node target;
 
     public Link(Node source, Node target, int cost) {
         this.source = source;
