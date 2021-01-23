@@ -16,6 +16,27 @@ public class Graph {
         root = createNode(item);
     }
 
+    public Graph(Item[] items) {
+
+        this(items[0]);
+
+        for (Item item : items) {
+            createNode(item);
+        }
+
+        for (String key : nodes.keySet()) {
+            for (String nextKey : nodes.keySet()) {
+
+                Node source = nodes.get(key);
+                Node target = nodes.get(nextKey);
+
+                source.linkTo(target);
+                target.linkTo(source);
+            }
+        }
+
+    }
+
     public Node getRoot() {
         return root;
     }
@@ -39,10 +60,6 @@ public class Graph {
 
     public String [] getNodeNames() {
         return nodes.keySet().toArray(new String[0]);
-    }
-
-    public Map<String, Node> getNodes() {
-        return nodes;
     }
 
     public Node createNode(Item item) {
