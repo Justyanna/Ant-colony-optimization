@@ -53,26 +53,25 @@ public class ACO {
 
             List<Node> cycleSolution = new ArrayList<>();
             int cycleRecord = 0;
+            int cycleDensity = 0;
 
             for (Ant w : workers) {
                 w.work();
                 if (w.getScore() > cycleRecord) {
                     cycleSolution = w.getPath();
                     cycleRecord = w.getScore();
+                    cycleDensity = totalKnapsackCapacity - w.getCapacity();
                 }
             }
 
             if (cycleRecord > score) {
                 solution = cycleSolution;
                 score = cycleRecord;
+                space_used = cycleDensity;
             }
 
             evaporate();
             updatePheromones();
-        }
-
-        for (Node node : solution) {
-            space_used += node.getItem().getWeight();
         }
 
     }
