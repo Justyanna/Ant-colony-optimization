@@ -40,7 +40,12 @@ public class ACO {
 
         for (int c = 0; c < numCycles; c++) {
 
-            unleashAnts();
+            try {
+                unleashAnts();
+            } catch (NullPointerException e) {
+                System.err.println("ACO error : knapsack capacity too low");
+                return;
+            }
 
             List<Node> cycleSolution = new ArrayList<>();
             int cycleRecord = 0;
@@ -66,7 +71,7 @@ public class ACO {
     private void unleashAnts() {
 
         for(int i = 0; i < getNumAnts(); i++) {
-            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(), alpha, beta);
+            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(totalKnapsackCapacity), alpha, beta);
         }
 
     }
@@ -93,11 +98,34 @@ public class ACO {
 
     }
 
-    public int getNumAnts() { return workers.length; }
+    public int getNumAnts() {
+        return workers.length;
+    }
 
-    public int getNumCycles() { return numCycles; }
+    public int getNumCycles() {
+        return numCycles;
+    }
 
-    public List<Node> getSolution() { return new ArrayList<>(solution); }
+    public List<Node> getSolution() {
+        return new ArrayList<>(solution);
+    }
 
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
+
+    @Override
+    public String toString() {
+
+        if (solution.size() < 1) {
+            return "No solution found.";
+        }
+
+        StringBuilder result = new StringBuilder("Result: $" + getScore() + "\nSteps: ");
+        for (Node step : solution) {
+            result.append(" ").append(step.getName());
+        }
+        return result.toString();
+
+    }
 }

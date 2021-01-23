@@ -4,7 +4,6 @@ import algorithm.ACO;
 import algorithm.Item;
 import data.Generator;
 import graph.Graph;
-import graph.Node;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -47,21 +46,15 @@ public class Main {
 
         rng = new Random(seed);
         int itemsAmount = 5;
-
         Item[] items = Generator.getInstance().createItems(itemsAmount);
+
         Graph graph = new Graph(items);
+        System.out.println();
         System.out.println(graph);
         System.out.println();
 
-        ACO aco = new ACO(graph, 10, 100, 15, 1, 5, 0.5);
-
-        System.out.println();
-        System.out.println("Result: $" + aco.getScore());
-        System.out.print("Steps:");
-        for (Node step : aco.getSolution()) {
-            System.out.print(" " + step.getName());
-        }
-        System.out.println();
+        ACO aco = new ACO(graph, 10, 100, 150, 1, 5, 0.5);
+        System.out.println(aco);
 
     }
 }

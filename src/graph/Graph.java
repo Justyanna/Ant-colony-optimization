@@ -3,7 +3,9 @@ package graph;
 import _app.Main;
 import algorithm.Item;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Graph {
@@ -11,9 +13,14 @@ public class Graph {
     private final Map<String, Node> nodes;
     private final Node root;
 
+    private int weight_limit;
+    private List<Node> valid_nodes;
+
     public Graph(Item item) {
         nodes = new HashMap<>();
         root = createNode(item);
+        weight_limit = 0;
+        valid_nodes = null;
     }
 
     public Graph(Item[] items) {
@@ -45,17 +52,33 @@ public class Graph {
         return nodes.get(name);
     }
 
-    public Node getRandomNode() {
+    public Node getRandomNode(int weight_limit) {
 
-        int id = Main.getRng().nextInt(nodes.size());
+        if (weight_limit != this.weight_limit) {
 
-        for(String name : nodes.keySet()) {
-            if(id-- == 0) {
-                return nodes.get(name);
+            this.weight_limit = Math.max(weight_limit, 0);
+
+            if (weight_limit == 0) {
+                valid_nodes = new ArrayList<>(nodes.values());
+            } else {
+                valid_nodes = new ArrayList<>();
+
+                for (String name : nodes.keySet()) {
+                    Node n = nodes.get(name);
+                    if (n.getItem().getWeight() <= weight_limit) {
+                        valid_nodes.add(n);
+                    }
+                }
+
+                if (valid_nodes.size() == 0) {
+                    valid_nodes = null;
+                }
             }
+
         }
 
-        return null;
+        return valid_nodes.get(Main.getRng().nextInt(valid_nodes.size()));
+
     }
 
     public String [] getNodeNames() {
