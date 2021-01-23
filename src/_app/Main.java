@@ -45,10 +45,10 @@ public class Main {
         System.out.println(graph);
         System.out.println();
 
-        ACO aco = new ACO(graph, 10, 20, graph.getTotalWeight() / 2, 1, 5, Ant.Optimization.AKA2, 0.5);
+        ACO aco = new ACO(graph, 10, 20, graph.getTotalWeight() * 0.5, 1, 5, Ant.Optimization.AKA2, 0.5);
         System.out.println(aco);
 
-        //        testAmountToCapacity();
+        testAmountToCapacity();
     }
 
     public static void testAmountToCapacity() {
@@ -80,9 +80,13 @@ public class Main {
             for (int i = 0; i < resultArr.length; i++) {
                 for (int j = 0; j < resultArr[0].length; j++) {
                     if (i == 0) {
-                        writer.append("\"" + resultArr[i][j] + "\"");
+                        if (j == 0) {
+                            writer.append("\"amount/capacity\"");
+                        } else {
+                            writer.append("\"").append(Integer.toString(resultArr[i][j])).append("%\"");
+                        }
                     } else if (j == 0) {
-                        writer.append("\"" + resultArr[i][j] + "\"");
+                        writer.append("\"").append(Integer.toString(resultArr[i][j])).append("\"");
                     } else {
                         writer.append(String.valueOf(resultArr[i][j]));
                     }

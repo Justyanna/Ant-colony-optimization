@@ -12,7 +12,7 @@ public class ACO {
     private final Graph data;
     private final Ant[] workers;
     private final int numCycles;
-    private final int totalKnapsackCapacity;
+    private final int total_capacity;
     private final int alpha;
     private final int beta;
     private final Ant.Optimization optimization;
@@ -22,12 +22,12 @@ public class ACO {
     private int score;
     private int space_used;
 
-    public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta,
+    public ACO(Graph data, int numAnts, int numCycles, double total_capacity, int alpha, int beta,
                Ant.Optimization optimization, double evaporationRate) {
         this.data = data;
         this.workers = new Ant[numAnts];
         this.numCycles = numCycles;
-        this.totalKnapsackCapacity = totalKnapsackCapacity;
+        this.total_capacity = (int) total_capacity;
         this.alpha = alpha;
         this.beta = beta;
         this.optimization = optimization;
@@ -60,7 +60,7 @@ public class ACO {
                 if (w.getScore() > cycleRecord) {
                     cycleSolution = w.getPath();
                     cycleRecord = w.getScore();
-                    cycleDensity = totalKnapsackCapacity - w.getCapacity();
+                    cycleDensity = total_capacity - w.getCapacity();
                 }
             }
 
@@ -79,7 +79,7 @@ public class ACO {
     private void unleashAnts() {
 
         for(int i = 0; i < getNumAnts(); i++) {
-            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(totalKnapsackCapacity),
+            workers[i] = new Ant(total_capacity, data.getRandomNode(total_capacity),
                     alpha, beta, optimization);
         }
 
@@ -132,7 +132,7 @@ public class ACO {
 
         StringBuilder result = new StringBuilder("Ant Colony Optimization report");
 
-        result.append("\n Space used: ").append(space_used).append("/").append(totalKnapsackCapacity).append("g");
+        result.append("\n Space used: ").append(space_used).append("/").append(total_capacity).append("g");
         result.append("\n Score:      $").append(getScore());
         result.append("\n Steps:     ");
 
