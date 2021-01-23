@@ -1,8 +1,8 @@
 package _app;
 
 import algorithm.ACO;
-import algorithm.Data;
 import algorithm.Item;
+import data.Generator;
 import graph.Graph;
 import graph.Node;
 
@@ -13,7 +13,17 @@ import java.util.Random;
 
 public class Main {
 
+    private static boolean seeded;
+    private static long seed;
     private static Random rng;
+
+    public static boolean isSeeded() {
+        return seeded;
+    }
+
+    public static long getSeed() {
+        return seed;
+    }
 
     public static Random getRng() {
         return rng;
@@ -21,26 +31,27 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean random_seed = true;
-        long seed = 0;
+        seeded = false;
+        seed = new Random().nextLong();
 
         for (Iterator<String> it = Arrays.stream(args).iterator(); it.hasNext(); ) {
             switch (it.next()) {
                 case "-s":
                     try {
                         seed = Long.parseLong(it.next());
-                        random_seed = false;
+                        seeded = true;
                     } catch (NullPointerException | NumberFormatException e) {
                         System.err.println("Call error : missing or invalid value for parameter -s");
                     }
             }
         }
 
-        rng = random_seed ? new Random() : new Random(seed);
+        rng = new Random(seed);
+
 
         System.out.println();
         int itemsAmount = 5;
-        Item[] items = generateItems(itemsAmount);
+        Item[] items = Generator.getInstance().createItems(itemsAmount);
         Graph graph = buildGraph(items);
         System.out.println(graph);
         System.out.println();
@@ -51,15 +62,6 @@ public class Main {
             System.out.print(" " + step.getName());
         }
         System.out.println();
-    }
-
-    private static Item[] generateItems(int itemsAmount) {
-        Item[] items = new Item[Math.min(itemsAmount, Data.itemsNames.length)];
-
-        for (int i = 0; i < items.length; i++) {
-            items[i] = new Item(Data.itemsNames[i], rng.nextInt(10) + 1, rng.nextInt(100) + 1);
-        }
-        return items;
     }
 
     private static Graph buildGraph(Item[] items) {
