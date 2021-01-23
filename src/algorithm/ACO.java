@@ -15,6 +15,7 @@ public class ACO {
     private final int totalKnapsackCapacity;
     private final int alpha;
     private final int beta;
+    private final Ant.Optimization optimization;
     private final double evaporationRate;
 
     private List<Node> solution;
@@ -22,13 +23,14 @@ public class ACO {
     private int space_used;
 
     public ACO(Graph data, int numAnts, int numCycles, int totalKnapsackCapacity, int alpha, int beta,
-               double evaporationRate) {
+               Ant.Optimization optimization, double evaporationRate) {
         this.data = data;
         this.workers = new Ant[numAnts];
         this.numCycles = numCycles;
         this.totalKnapsackCapacity = totalKnapsackCapacity;
         this.alpha = alpha;
         this.beta = beta;
+        this.optimization = optimization;
         this.evaporationRate = evaporationRate;
 
         compute();
@@ -78,7 +80,8 @@ public class ACO {
     private void unleashAnts() {
 
         for(int i = 0; i < getNumAnts(); i++) {
-            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(totalKnapsackCapacity), alpha, beta);
+            workers[i] = new Ant(totalKnapsackCapacity, data.getRandomNode(totalKnapsackCapacity),
+                    alpha, beta, optimization);
         }
 
     }

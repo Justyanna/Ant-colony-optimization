@@ -1,6 +1,7 @@
 package _app;
 
 import algorithm.ACO;
+import algorithm.Ant;
 import algorithm.Item;
 import data.Generator;
 import graph.Graph;
@@ -42,7 +43,8 @@ public class Main {
         System.out.println(graph);
         System.out.println();
 
-        ACO aco = new ACO(graph, 10, 100, graph.getTotalWeight() / 2, 1, 5, 0.5);
+        ACO aco = new ACO(graph, 10, 100, graph.getTotalWeight() / 2,
+                1, 5, Ant.Optimization.AKA2, 0.5);
         System.out.println(aco);
 
     }

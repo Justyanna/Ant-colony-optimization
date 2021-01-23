@@ -9,16 +9,20 @@ import java.util.List;
 
 public class Ant {
 
+    private final int total_capacity;
+
     private Node location;
     private final List<Node> path;
     private List<Node> neighbourhood;
+    private final Optimization optimization;
     private int capacity;
     private int score;
     private final int alpha;
     private final int beta;
 
-    public Ant(int capacity, Node startingNode, int alpha, int beta) {
+    public Ant(int capacity, Node startingNode, int alpha, int beta, Optimization optimization) {
 
+        this.total_capacity = capacity;
         this.capacity = capacity;
         this.score = 0;
 
@@ -27,15 +31,38 @@ public class Ant {
 
         this.alpha = alpha;
         this.beta = beta;
+        this.optimization = optimization;
     }
 
-    public Node getLocation() { return location; }
+    private double rateItem(Item item) {
 
-    public List<Node> getPath() { return new ArrayList<>(path); }
+        double v = item.getValue();
+        double w = item.getWeight();
 
-    public int getCapacity() { return capacity; }
+        double attractiveness = switch (optimization) {
+            case AKA1 -> v / (w / capacity);
+            case AKA2 -> v / (w * w);
+            case AKA3 -> v / (w / total_capacity);
+        };
 
-    public int getScore() { return score; }
+        return Math.pow(item.getPheromone(), alpha) * Math.pow(attractiveness, beta);
+    }
+
+    public Node getLocation() {
+        return location;
+    }
+
+    public List<Node> getPath() {
+        return new ArrayList<>(path);
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     public void work() {
 
@@ -105,7 +132,6 @@ public class Ant {
         return null;
     }
 
-    private double rateItem(Item item) {
-        return Math.pow(item.getAttractiveness(), alpha) * Math.pow(item.getPheromone(), beta);
-    }
+    public enum Optimization {AKA1, AKA2, AKA3}
+
 }

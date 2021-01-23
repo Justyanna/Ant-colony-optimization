@@ -30,10 +30,6 @@ public class Item {
         return name;
     }
 
-    public double getAttractiveness() {
-        return (double) value / weight;
-    }
-
     public double getPheromone() {
         return pheromone;
     }
