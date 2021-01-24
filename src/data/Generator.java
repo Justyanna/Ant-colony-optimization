@@ -34,8 +34,7 @@ public class Generator {
 
     public Item[] createItems(int amount) {
 
-
-        Item[] items = null;
+        ItemTemplate[] templates;
 
         try {
             Scanner source = new Scanner(new File("res/template.txt"));
@@ -62,15 +61,17 @@ public class Generator {
                 System.err.println("Generator warning : rejected duplicated templates (" + duplicates + ")");
             }
 
-            ItemTemplate[] templates = tmp.toArray(new ItemTemplate[0]);
-            items = new Item[amount];
-
-            for (int i = 0; i < amount; i++) {
-                items[i] = templates[(rng.nextInt(templates.length))].generate();
-            }
+            templates = tmp.toArray(new ItemTemplate[0]);
 
         } catch (IOException e) {
             System.err.println("Generator error : 'res/template.txt' not found");
+            return null;
+        }
+
+        Item[] items = new Item[amount];
+
+        for (int i = 0; i < amount; i++) {
+            items[i] = templates[(rng.nextInt(templates.length))].generate();
         }
 
         return items;
